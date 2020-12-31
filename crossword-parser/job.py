@@ -61,13 +61,13 @@ class Job:
         raw_lines, self.rows, self.cols = img_proc.detect_lines(self.img_cropped[2])
         print("Found %d rows and %d cols" % (len(self.rows) - 1, len(self.cols) - 1))
 
-        self.imgLinesRaw = cv.cvtColor(self.img_cropped[0], cv.COLOR_GRAY2BGR)
-        self.imgLinesClean = cv.cvtColor(self.img_cropped[0], cv.COLOR_GRAY2BGR)
-        img_proc.paint_lines(self.imgLinesRaw, raw_lines, (0,255,0), 2)
-        img_proc.paint_grid(self.imgLinesClean, self.rows, self.cols, (0,255,0), (255,0,0), 2)
+        self.img_lines_raw = cv.cvtColor(self.img_cropped[0], cv.COLOR_GRAY2BGR)
+        self.img_lines_clean = cv.cvtColor(self.img_cropped[0], cv.COLOR_GRAY2BGR)
+        img_proc.paint_lines(self.img_lines_raw, raw_lines, (0,255,0), 2)
+        img_proc.paint_grid(self.img_lines_clean, self.rows, self.cols, (0,255,0), (255,0,0), 2)
 
         img_utils.contact_sheet("%s/a2.png" % self.job_dir, 3, 2, \
-                [ self.img_cropped[0], self.img_cropped[1], self.img_cropped[2], self.imgLinesRaw, self.imgLinesClean ], \
+                [ self.img_cropped[0], self.img_cropped[1], self.img_cropped[2], self.img_lines_raw, self.img_lines_clean ], \
                 self.dim_cropped[0], self.dim_cropped[1])
 
     def slice_grid(self):
@@ -77,5 +77,5 @@ class Job:
     def print_grid(self):
         print("\nGrid:")
         for row in self.grid:
-            print("  %s" % (' '.join(row)))
+            print("  %s" % (''.join(row)))
         print()
